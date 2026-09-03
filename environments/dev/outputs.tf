@@ -107,3 +107,23 @@ output "app_instance_profile_name" {
   description = "Instance profile used by application instances"
   value       = module.iam.app_instance_profile_name
 }
+
+output "public_nlb_dns_name" {
+  description = "Public Network Load Balancer DNS name"
+  value       = module.load_balancers.public_nlb_dns_name
+}
+
+output "internal_nlb_dns_name" {
+  description = "Internal Network Load Balancer DNS name"
+  value       = module.load_balancers.internal_nlb_dns_name
+}
+
+output "web_target_group_arn" {
+  description = "Web-tier target group ARN"
+  value       = module.load_balancers.web_target_group_arn
+}
+
+output "app_target_group_arn" {
+  description = "Application-tier target group ARN"
+  value       = module.load_balancers.app_target_group_arn
+}

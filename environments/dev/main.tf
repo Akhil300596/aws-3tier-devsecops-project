@@ -25,3 +25,15 @@ module "iam" {
   project_name = var.project_name
   environment  = var.environment
 }
+
+module "load_balancers" {
+  source = "../../modules/load-balancers"
+
+  project_name                   = var.project_name
+  environment                    = var.environment
+  vpc_id                         = module.vpc.vpc_id
+  public_subnet_ids              = module.vpc.public_subnet_ids
+  app_subnet_ids                 = module.vpc.app_subnet_ids
+  public_nlb_security_group_id   = module.security_groups.public_nlb_security_group_id
+  internal_nlb_security_group_id = module.security_groups.internal_nlb_security_group_id
+}

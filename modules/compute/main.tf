@@ -182,8 +182,8 @@ resource "aws_autoscaling_group" "web" {
   wait_for_capacity_timeout = "20m"
 
   launch_template {
-    id      = aws_launch_template.app.id
-    version = aws_launch_template.app.latest_version
+    id      = aws_launch_template.web.id
+    version = "$Latest"
   }
 
   instance_refresh {
@@ -244,7 +244,7 @@ resource "aws_autoscaling_group" "app" {
 
   launch_template {
     id      = aws_launch_template.app.id
-    version = "$Latest"
+    version = aws_launch_template.app.latest_version
   }
 
   instance_refresh {

@@ -58,3 +58,13 @@ module "compute" {
 
   internal_nlb_dns_name = module.load_balancers.internal_nlb_dns_name
 }
+
+module "database" {
+  source = "../../modules/database"
+
+  project_name = var.project_name
+  environment  = var.environment
+
+  db_subnet_ids        = module.vpc.db_subnet_ids
+  db_security_group_id = module.security_groups.db_security_group_id
+}

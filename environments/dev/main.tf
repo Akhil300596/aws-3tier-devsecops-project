@@ -37,3 +37,24 @@ module "load_balancers" {
   public_nlb_security_group_id   = module.security_groups.public_nlb_security_group_id
   internal_nlb_security_group_id = module.security_groups.internal_nlb_security_group_id
 }
+
+module "compute" {
+  source = "../../modules/compute"
+
+  project_name = var.project_name
+  environment  = var.environment
+
+  web_subnet_ids = module.vpc.web_subnet_ids
+  app_subnet_ids = module.vpc.app_subnet_ids
+
+  web_security_group_id = module.security_groups.web_security_group_id
+  app_security_group_id = module.security_groups.app_security_group_id
+
+  web_instance_profile_name = module.iam.web_instance_profile_name
+  app_instance_profile_name = module.iam.app_instance_profile_name
+
+  web_target_group_arn = module.load_balancers.web_target_group_arn
+  app_target_group_arn = module.load_balancers.app_target_group_arn
+
+  internal_nlb_dns_name = module.load_balancers.internal_nlb_dns_name
+}

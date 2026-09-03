@@ -179,10 +179,11 @@ resource "aws_autoscaling_group" "web" {
 
   health_check_type         = "ELB"
   health_check_grace_period = 300
+  wait_for_capacity_timeout = "20m"
 
   launch_template {
-    id      = aws_launch_template.web.id
-    version = "$Latest"
+    id      = aws_launch_template.app.id
+    version = aws_launch_template.app.latest_version
   }
 
   instance_refresh {
@@ -239,6 +240,7 @@ resource "aws_autoscaling_group" "app" {
 
   health_check_type         = "ELB"
   health_check_grace_period = 300
+  wait_for_capacity_timeout = "20m"
 
   launch_template {
     id      = aws_launch_template.app.id

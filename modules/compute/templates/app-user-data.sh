@@ -8,6 +8,9 @@ apt-get install -y tomcat10 curl
 
 mkdir -p /var/lib/tomcat10/webapps/ROOT
 
+# Remove Tomcat's default page so that our custom JSP becomes the home page.
+rm -f /var/lib/tomcat10/webapps/ROOT/index.html
+
 cat > /var/lib/tomcat10/webapps/ROOT/index.jsp <<'JSP'
 <%@ page import="java.net.InetAddress" %>
 <!DOCTYPE html>

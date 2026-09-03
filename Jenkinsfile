@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    parameters {
+        choice(
+            name: 'ACTION',
+            choices: ['plan', 'apply'],
+            description: 'Choose plan to preview or apply to create infrastructure'
+        )
+    }
+
     options {
         timestamps()
         disableConcurrentBuilds()
@@ -61,11 +69,40 @@ pipeline {
                 }
             }
         }
+
+        stage('Manual Approval') {
+            when {
+                expression {
+                    params.ACTION == 'apply'
+                }
+            }
+
+            steps {
+                input(
+                    message: 'Review the Terraform plan. Approve creation of the VPC networking resources?',
+                    ok: 'Approve Apply'
+                )
+            }
+        }
+
+        stage('Terraform Apply') {
+            when {
+                expression {
+                    params.ACTION == 'apply'
+                }
+            }
+
+            steps {
+                dir("${TF_DIR}") {
+                    sh 'terraform apply -input=false -auto-approve network.tfplan'
+                }
+            }
+        }
     }
 
     post {
         success {
-            echo 'Terraform validation and planning completed successfully.'
+            echo "Terraform ${params.ACTION} workflow completed successfully."
         }
 
         failure {

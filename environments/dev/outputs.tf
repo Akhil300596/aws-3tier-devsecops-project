@@ -152,3 +152,28 @@ output "app_autoscaling_group_name" {
   description = "Application Auto Scaling Group name"
   value       = module.compute.app_autoscaling_group_name
 }
+
+output "database_master_secret_arn" {
+  description = "ARN of the AWS-managed database credential secret"
+  value       = module.database.master_secret_arn
+}
+
+output "primary_db_identifier" {
+  description = "Primary RDS database identifier"
+  value       = module.database.primary_db_identifier
+}
+
+output "primary_db_address" {
+  description = "Private DNS address of the primary database"
+  value       = module.database.primary_db_address
+}
+
+output "primary_db_endpoint" {
+  description = "Primary database endpoint and port"
+  value       = module.database.primary_db_endpoint
+}
+
+output "primary_db_port" {
+  description = "Primary database port"
+  value       = module.database.primary_db_port
+}

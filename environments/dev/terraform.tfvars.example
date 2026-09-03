@@ -1,0 +1,4 @@
+primary_region = "ap-south-1"
+dr_region      = "us-east-1"
+project_name   = "aws-3tier-devsecops"
+environment    = "dev"

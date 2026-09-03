@@ -87,3 +87,23 @@ output "db_security_group_id" {
   description = "Security group ID of the database tier"
   value       = module.security_groups.db_security_group_id
 }
+
+output "web_iam_role_name" {
+  description = "IAM role used by web instances"
+  value       = module.iam.web_role_name
+}
+
+output "web_instance_profile_name" {
+  description = "Instance profile used by web instances"
+  value       = module.iam.web_instance_profile_name
+}
+
+output "app_iam_role_name" {
+  description = "IAM role used by application instances"
+  value       = module.iam.app_role_name
+}
+
+output "app_instance_profile_name" {
+  description = "Instance profile used by application instances"
+  value       = module.iam.app_instance_profile_name
+}

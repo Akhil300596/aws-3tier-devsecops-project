@@ -87,3 +87,23 @@ resource "aws_iam_instance_profile" "app" {
     Tier        = "application"
   }
 }
+
+data "aws_iam_policy_document" "app_database_secret" {
+  statement {
+    sid    = "ReadDatabaseCredentials"
+    effect = "Allow"
+
+    actions = [
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:GetSecretValue"
+    ]
+
+    resources = [var.database_secret_arn]
+  }
+}
+
+resource "aws_iam_role_policy" "app_database_secret" {
+  name   = "${var.project_name}-${var.environment}-app-database-secret"
+  role   = aws_iam_role.app.id
+  policy = data.aws_iam_policy_document.app_database_secret.json
+}

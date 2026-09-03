@@ -22,8 +22,9 @@ module "security_groups" {
 module "iam" {
   source = "../../modules/iam"
 
-  project_name = var.project_name
-  environment  = var.environment
+  project_name        = var.project_name
+  environment         = var.environment
+  database_secret_arn = module.database.master_secret_arn
 }
 
 module "load_balancers" {

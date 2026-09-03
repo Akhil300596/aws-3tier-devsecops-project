@@ -7,3 +7,8 @@ variable "environment" {
   description = "Deployment environment name"
   type        = string
 }
+
+variable "database_secret_arn" {
+  description = "ARN of the RDS-managed database credential secret"
+  type        = string
+}

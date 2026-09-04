@@ -177,3 +177,43 @@ output "primary_db_port" {
   description = "Primary database port"
   value       = module.database.primary_db_port
 }
+
+output "dr_vpc_id" {
+  description = "ID of the disaster recovery VPC"
+  value       = module.disaster_recovery.dr_vpc_id
+}
+
+output "dr_database_subnet_ids" {
+  description = "IDs of the private disaster recovery database subnets"
+  value       = module.disaster_recovery.dr_database_subnet_ids
+}
+
+output "dr_database_security_group_id" {
+  description = "Security group ID of the disaster recovery database"
+  value       = module.disaster_recovery.dr_database_security_group_id
+}
+
+output "dr_kms_key_arn" {
+  description = "ARN of the KMS key protecting the DR replica"
+  value       = module.disaster_recovery.dr_kms_key_arn
+}
+
+output "dr_replica_identifier" {
+  description = "Identifier of the cross-region RDS replica"
+  value       = module.disaster_recovery.dr_replica_identifier
+}
+
+output "dr_replica_arn" {
+  description = "ARN of the cross-region RDS replica"
+  value       = module.disaster_recovery.dr_replica_arn
+}
+
+output "dr_replica_address" {
+  description = "Private DNS address of the cross-region RDS replica"
+  value       = module.disaster_recovery.dr_replica_address
+}
+
+output "dr_replica_endpoint" {
+  description = "Private endpoint of the cross-region RDS replica"
+  value       = module.disaster_recovery.dr_replica_endpoint
+}

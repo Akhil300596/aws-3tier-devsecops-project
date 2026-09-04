@@ -75,3 +75,14 @@ module "database" {
   db_security_group_id = module.security_groups.db_security_group_id
 }
 
+module "disaster_recovery" {
+  source = "../../modules/disaster-recovery"
+
+  providers = {
+    aws = aws.dr
+  }
+
+  project_name  = var.project_name
+  environment   = var.environment
+  source_db_arn = module.database.primary_db_arn
+}

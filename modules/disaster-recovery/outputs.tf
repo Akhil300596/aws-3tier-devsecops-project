@@ -20,20 +20,20 @@ output "dr_kms_key_arn" {
 
 output "dr_replica_identifier" {
   description = "Identifier of the cross-region RDS read replica"
-  value       = aws_db_instance.replica.identifier
+  value       = try(aws_db_instance.replica[0].identifier, null)
 }
 
 output "dr_replica_arn" {
   description = "ARN of the cross-region RDS read replica"
-  value       = aws_db_instance.replica.arn
+  value       = try(aws_db_instance.replica[0].arn, null)
 }
 
 output "dr_replica_address" {
   description = "Private DNS address of the cross-region RDS read replica"
-  value       = aws_db_instance.replica.address
+  value       = try(aws_db_instance.replica[0].address, null)
 }
 
 output "dr_replica_endpoint" {
   description = "Private endpoint and port of the cross-region RDS read replica"
-  value       = aws_db_instance.replica.endpoint
+  value       = try(aws_db_instance.replica[0].endpoint, null)
 }

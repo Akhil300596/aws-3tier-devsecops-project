@@ -82,7 +82,8 @@ module "disaster_recovery" {
     aws = aws.dr
   }
 
-  project_name  = var.project_name
-  environment   = var.environment
-  source_db_arn = module.database.primary_db_arn
+  project_name   = var.project_name
+  environment    = var.environment
+  source_db_arn  = module.database.primary_db_arn
+  create_replica = false
 }

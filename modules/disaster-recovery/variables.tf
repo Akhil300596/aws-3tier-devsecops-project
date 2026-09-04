@@ -80,3 +80,9 @@ variable "kms_deletion_window_days" {
     error_message = "The KMS deletion window must be between 7 and 30 days."
   }
 }
+
+variable "create_replica" {
+  description = "Whether to create the cross-region RDS read replica"
+  type        = bool
+  default     = false
+}

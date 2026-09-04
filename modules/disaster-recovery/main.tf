@@ -95,6 +95,7 @@ resource "aws_db_subnet_group" "dr" {
 }
 
 resource "aws_db_instance" "replica" {
+  count      = var.create_replica ? 1 : 0
   identifier = "${local.name_prefix}-mysql-dr-replica"
 
   replicate_source_db = var.source_db_arn

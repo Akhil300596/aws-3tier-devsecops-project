@@ -52,8 +52,7 @@ resource "aws_db_instance" "primary" {
   username = var.master_username
   port     = 3306
 
-  manage_master_user_password = false
-  password                    = random_password.master.result
+  password = random_password.master.result
 
   allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage

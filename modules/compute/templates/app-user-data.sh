@@ -64,7 +64,7 @@ for ATTEMPT in $(seq 1 12); do
         --host="$DB_HOST" \
         --port="$DB_PORT" \
         --user="$DB_USERNAME" \
-        --ssl \
+        --ssl-mode=REQUIRED \
         --connect-timeout=10 \
         "$DB_NAME" \
         --execute="
@@ -85,7 +85,7 @@ for ATTEMPT in $(seq 1 12); do
           --host="$DB_HOST" \
           --port="$DB_PORT" \
           --user="$DB_USERNAME" \
-          --ssl \
+          --ssl-mode=REQUIRED \
           --connect-timeout=10 \
           --batch \
           --skip-column-names \

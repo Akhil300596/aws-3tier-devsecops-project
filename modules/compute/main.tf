@@ -114,7 +114,13 @@ resource "aws_launch_template" "app" {
   }
 
   user_data = base64encode(
-    file("${path.module}/templates/app-user-data.sh")
+    templatefile("${path.module}/templates/app-user-data.sh", {
+      aws_region          = var.aws_region
+      database_address    = var.database_address
+      database_port       = var.database_port
+      database_name       = var.database_name
+      database_secret_arn = var.database_secret_arn
+    })
   )
 
   block_device_mappings {

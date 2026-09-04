@@ -104,3 +104,28 @@ variable "app_max_size" {
   type        = number
   default     = 4
 }
+
+variable "aws_region" {
+  description = "AWS region containing the primary database and its secret"
+  type        = string
+}
+
+variable "database_address" {
+  description = "Private DNS address of the primary RDS database"
+  type        = string
+}
+
+variable "database_port" {
+  description = "Port used by the primary RDS database"
+  type        = number
+}
+
+variable "database_name" {
+  description = "Name of the application database"
+  type        = string
+}
+
+variable "database_secret_arn" {
+  description = "ARN of the Secrets Manager secret containing database credentials"
+  type        = string
+}

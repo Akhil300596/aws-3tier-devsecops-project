@@ -58,6 +58,11 @@ module "compute" {
   app_target_group_arn = module.load_balancers.app_target_group_arn
 
   internal_nlb_dns_name = module.load_balancers.internal_nlb_dns_name
+  aws_region            = var.primary_region
+  database_address      = module.database.primary_db_address
+  database_port         = module.database.primary_db_port
+  database_name         = module.database.primary_db_name
+  database_secret_arn   = module.database.master_secret_arn
 }
 
 module "database" {
@@ -69,3 +74,4 @@ module "database" {
   db_subnet_ids        = module.vpc.db_subnet_ids
   db_security_group_id = module.security_groups.db_security_group_id
 }
+

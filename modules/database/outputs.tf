@@ -27,3 +27,8 @@ output "master_secret_arn" {
   description = "ARN of the AWS-managed Secrets Manager secret"
   value       = try(aws_db_instance.primary.master_user_secret[0].secret_arn, null)
 }
+
+output "primary_db_name" {
+  description = "Name of the application database"
+  value       = aws_db_instance.primary.db_name
+}

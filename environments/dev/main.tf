@@ -87,3 +87,25 @@ module "disaster_recovery" {
   source_db_arn  = module.database.primary_db_arn
   create_replica = true
 }
+
+module "monitoring" {
+  source = "../../modules/monitoring"
+
+  providers = {
+    aws    = aws
+    aws.dr = aws.dr
+  }
+
+  project_name = var.project_name
+  environment  = var.environment
+
+  web_autoscaling_group_name = module.compute.web_autoscaling_group_name
+  app_autoscaling_group_name = module.compute.app_autoscaling_group_name
+
+  public_nlb_arn        = module.load_balancers.public_nlb_arn
+  internal_nlb_arn      = module.load_balancers.internal_nlb_arn
+  web_target_group_arn  = module.load_balancers.web_target_group_arn
+  app_target_group_arn  = module.load_balancers.app_target_group_arn
+  primary_db_identifier = module.database.primary_db_identifier
+  dr_replica_identifier = module.disaster_recovery.dr_replica_identifier
+}

@@ -217,3 +217,23 @@ output "dr_replica_endpoint" {
   description = "Private endpoint of the cross-region RDS replica"
   value       = module.disaster_recovery.dr_replica_endpoint
 }
+
+output "primary_monitoring_sns_topic_arn" {
+  description = "ARN of the primary-region monitoring SNS topic"
+  value       = module.monitoring.primary_sns_topic_arn
+}
+
+output "dr_monitoring_sns_topic_arn" {
+  description = "ARN of the DR-region monitoring SNS topic"
+  value       = module.monitoring.dr_sns_topic_arn
+}
+
+output "primary_cloudwatch_alarm_names" {
+  description = "Names of the primary-region CloudWatch alarms"
+  value       = module.monitoring.primary_alarm_names
+}
+
+output "dr_cloudwatch_alarm_names" {
+  description = "Names of the DR-region CloudWatch alarms"
+  value       = module.monitoring.dr_alarm_names
+}

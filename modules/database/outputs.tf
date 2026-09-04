@@ -24,8 +24,12 @@ output "primary_db_port" {
 }
 
 output "master_secret_arn" {
-  description = "ARN of the AWS-managed Secrets Manager secret"
-  value       = try(aws_db_instance.primary.master_user_secret[0].secret_arn, null)
+  description = "ARN of the custom Secrets Manager database secret"
+  value       = aws_secretsmanager_secret.database_master.arn
+
+  depends_on = [
+    aws_secretsmanager_secret_version.database_master
+  ]
 }
 
 output "primary_db_name" {

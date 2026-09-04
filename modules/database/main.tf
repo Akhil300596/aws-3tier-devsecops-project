@@ -8,6 +8,29 @@ locals {
   }
 }
 
+resource "random_password" "master" {
+  length = 24
+
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}:,.?"
+
+  min_lower   = 2
+  min_upper   = 2
+  min_numeric = 2
+  min_special = 2
+}
+
+resource "aws_secretsmanager_secret" "database_master" {
+  name                    = "${local.name_prefix}-database-master"
+  description             = "Master credentials for the primary application database"
+  recovery_window_in_days = 7
+
+  tags = merge(local.common_tags, {
+    Name = "${local.name_prefix}-database-master"
+    Tier = "database"
+  })
+}
+
 resource "aws_db_subnet_group" "this" {
   name       = "${local.name_prefix}-db-subnet-group"
   subnet_ids = var.db_subnet_ids
@@ -29,7 +52,8 @@ resource "aws_db_instance" "primary" {
   username = var.master_username
   port     = 3306
 
-  manage_master_user_password = true
+  manage_master_user_password = false
+  password                    = random_password.master.result
 
   allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage
@@ -65,4 +89,18 @@ resource "aws_db_instance" "primary" {
   lifecycle {
     prevent_destroy = false
   }
+}
+
+resource "aws_secretsmanager_secret_version" "database_master" {
+  secret_id = aws_secretsmanager_secret.database_master.id
+
+  secret_string = jsonencode({
+    username             = var.master_username
+    password             = random_password.master.result
+    engine               = "mysql"
+    host                 = aws_db_instance.primary.address
+    port                 = aws_db_instance.primary.port
+    dbname               = aws_db_instance.primary.db_name
+    dbInstanceIdentifier = aws_db_instance.primary.identifier
+  })
 }

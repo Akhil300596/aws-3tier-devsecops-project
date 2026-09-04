@@ -85,5 +85,5 @@ module "disaster_recovery" {
   project_name   = var.project_name
   environment    = var.environment
   source_db_arn  = module.database.primary_db_arn
-  create_replica = false
+  create_replica = true
 }

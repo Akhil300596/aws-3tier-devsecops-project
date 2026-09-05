@@ -73,6 +73,8 @@ module "database" {
 
   db_subnet_ids        = module.vpc.db_subnet_ids
   db_security_group_id = module.security_groups.db_security_group_id
+
+  multi_az = true
 }
 
 module "disaster_recovery" {
